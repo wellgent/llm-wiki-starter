@@ -31,7 +31,6 @@ Your map will research how to set up an LLM Wiki, ask you what to include, and t
 - A Mac or a Linux computer. On Windows, use [WSL](https://learn.microsoft.com/windows/wsl/install) and run every command in its terminal.
 - A GitHub account.
 - A paid Claude plan. Claude Code needs Pro, Max, Team or Enterprise. The free plan does not include it.
-- [Node.js](https://nodejs.org) 22 or newer, used once to install the skills.
 
 ## Steps
 
@@ -67,18 +66,7 @@ gh repo clone <your-account>/my-wiki
 cd my-wiki
 ```
 
-### 4. Install the skills
-
-This installs the exact versions pinned in `skills-lock.json` into `.claude/skills/`:
-
-```sh
-npx -y skills@1.7.2 add mattpocock/skills#24fe0ef7737efae15c87225755e9f6f5965e4888 \
-  --skill wayfinder --skill grilling --skill domain-modeling \
-  --skill research --skill prototype --skill setup-matt-pocock-skills \
-  --agent claude-code --yes
-```
-
-### 5. Check your setup
+### 4. Check your setup
 
 ```sh
 scripts/check-prep
@@ -88,13 +76,13 @@ Each line says PASS or FAIL.
 Every FAIL line comes with the command that fixes it.
 Fix them and run the script again until everything passes.
 
-### 6. Open Claude Code in the repo
+### 5. Open Claude Code in the repo
 
 ```sh
 claude
 ```
 
-### 7. Connect the skills to GitHub Issues
+### 6. Connect the skills to GitHub Issues
 
 In Claude Code, type:
 
@@ -106,7 +94,7 @@ When it asks where issues live, choose GitHub.
 Accept the recommended answer for the other questions.
 It writes a few small config files, which you can commit.
 
-### 8. Start the map
+### 7. Start the map
 
 Type `/wayfinder`, a space, and then paste the kickoff prompt below as one message.
 
@@ -125,7 +113,7 @@ Its tasks build the wiki in this repo, and it ends when the MVP wiki is in place
 Claude creates the map as a GitHub issue, with a child issue for each question it can see so far.
 It also starts research in the background.
 
-### 9. Work the map
+### 8. Work the map
 
 Work the map one ticket at a time.
 For each ticket, start a fresh Claude Code session in the repo and type `/wayfinder` followed by the map's issue link.
@@ -139,5 +127,21 @@ After that, keep adding sources.
 ## What is in this repo
 
 - `AGENTS.md` tells the agent what this repo is for and how to work in it. `CLAUDE.md` points Claude Code to it.
-- `skills-lock.json` pins the skills to one version of [mattpocock/skills](https://github.com/mattpocock/skills).
+- `.claude/skills/` holds Matt Pocock's skills that the steps use: wayfinder, grilling, domain-modeling, research, prototype and setup-matt-pocock-skills.
+- `skills-lock.json` records which version of [mattpocock/skills](https://github.com/mattpocock/skills) those files come from.
 - `scripts/check-prep` checks that your machine and your copy are ready.
+
+## Updating the skills later (optional)
+
+The skills work as they are, and you never have to update them.
+To move to a newer version, install [Node.js](https://nodejs.org) 22 or newer and run this in the repo, with a newer commit from [mattpocock/skills](https://github.com/mattpocock/skills/commits/main) in place of the one after `#`:
+
+```sh
+npx -y skills@1.7.2 add mattpocock/skills#24fe0ef7737efae15c87225755e9f6f5965e4888 \
+  --skill wayfinder --skill grilling --skill domain-modeling \
+  --skill research --skill prototype --skill setup-matt-pocock-skills \
+  --agent claude-code --yes
+```
+
+It rewrites the files in `.claude/skills/` and the record in `skills-lock.json`.
+Commit both.

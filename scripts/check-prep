@@ -89,7 +89,7 @@ done
 if [ -z "$missing" ]; then
   pass "the skills in skills-lock.json are installed"
 else
-  fail "skills not installed:$missing" "install them with the command in README.md, step 4"
+  fail "skills missing from .claude/skills:$missing" "restore them with: git checkout -- .claude/skills"
 fi
 
 echo
