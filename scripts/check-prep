@@ -1,0 +1,101 @@
+#!/bin/sh
+# Checks that this machine and this repo are ready for the LLM Wiki starter.
+# Run it from the repo folder: scripts/check-prep
+
+STARTER="wellgent/llm-wiki-starter"
+SKILLS_DIR=".claude/skills"
+failures=0
+
+pass() {
+  printf 'PASS  %s\n' "$1"
+}
+
+fail() {
+  printf 'FAIL  %s\n' "$1"
+  printf '      Fix: %s\n' "$2"
+  failures=$((failures + 1))
+}
+
+cd "$(dirname "$0")/.." || exit 1
+
+if command -v git >/dev/null 2>&1; then
+  pass "git is installed"
+else
+  fail "git is not installed" "install it from https://git-scm.com/downloads"
+fi
+
+if command -v claude >/dev/null 2>&1; then
+  pass "Claude Code is installed"
+  if claude auth status >/dev/null 2>&1; then
+    pass "Claude Code is signed in"
+  else
+    fail "Claude Code is not signed in" "run: claude auth login"
+  fi
+else
+  fail "Claude Code is not installed" "run: curl -fsSL https://claude.ai/install.sh | bash"
+fi
+
+gh_ready=0
+if command -v gh >/dev/null 2>&1; then
+  pass "GitHub CLI (gh) is installed"
+  if gh auth status >/dev/null 2>&1; then
+    pass "gh is signed in to GitHub"
+    gh_ready=1
+  else
+    fail "gh is not signed in to GitHub" "run: gh auth login"
+  fi
+else
+  fail "GitHub CLI (gh) is not installed" "install it from https://cli.github.com"
+fi
+
+remote=$(git remote get-url origin 2>/dev/null)
+case "$remote" in
+  *github.com*)
+    pass "this repo has a GitHub remote ($remote)"
+    if [ "$gh_ready" -eq 1 ]; then
+      info=$(gh repo view --json nameWithOwner,hasIssuesEnabled,visibility \
+        --jq '.nameWithOwner + " " + (.hasIssuesEnabled | tostring) + " " + .visibility' 2>/dev/null)
+      if [ -z "$info" ]; then
+        fail "gh cannot read the GitHub repo" "check that $remote exists and your account can see it"
+      else
+        set -- $info
+        if [ "$1" = "$STARTER" ]; then
+          fail "this is the starter itself, not your copy" "click 'Use this template' on https://github.com/$STARTER, then clone your new repo"
+        else
+          pass "this is your own copy ($1)"
+        fi
+        if [ "$2" = "true" ]; then
+          pass "issues are turned on"
+        else
+          fail "issues are turned off" "run: gh repo edit --enable-issues"
+        fi
+        if [ "$3" = "PRIVATE" ]; then
+          pass "the repo is private"
+        else
+          fail "the repo is not private, and your notes will go into it" "run: gh repo edit --visibility private --accept-visibility-change-consequences"
+        fi
+      fi
+    fi
+    ;;
+  *)
+    fail "this folder has no GitHub remote" "clone your copy from GitHub: gh repo clone <your-account>/<your-repo>"
+    ;;
+esac
+
+missing=""
+for skill in $(sed -n 's/^    "\([a-z0-9-]*\)": {$/\1/p' skills-lock.json); do
+  [ -f "$SKILLS_DIR/$skill/SKILL.md" ] || missing="$missing $skill"
+done
+if [ -z "$missing" ]; then
+  pass "the skills in skills-lock.json are installed"
+else
+  fail "skills not installed:$missing" "install them with the command in README.md, step 4"
+fi
+
+echo
+if [ "$failures" -eq 0 ]; then
+  echo "All checks passed. You are ready."
+else
+  echo "$failures check(s) failed. Fix them and run scripts/check-prep again."
+  exit 1
+fi
