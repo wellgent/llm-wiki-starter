@@ -3,45 +3,51 @@
   "skills": {
     "domain-modeling": {
       "source": "mattpocock/skills",
-      "ref": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
       "sourceType": "github",
       "skillPath": "skills/engineering/domain-modeling/SKILL.md",
-      "computedHash": "b3eb40152b81f0c98fd2095a023c019452dbdce56f7540cc67fece2972db8369"
+      "computedHash": "b3eb40152b81f0c98fd2095a023c019452dbdce56f7540cc67fece2972db8369",
+      "installMode": "copy"
     },
     "grilling": {
       "source": "mattpocock/skills",
-      "ref": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
       "sourceType": "github",
       "skillPath": "skills/productivity/grilling/SKILL.md",
-      "computedHash": "4dd886b0196bf43729d954ae326016f2bd9f5f79d892500b407c33a753362f14"
+      "computedHash": "e40cc1d348f6d935e28f1e24474302d7368f0a400429271a43b35fe154891dc5",
+      "installMode": "copy"
     },
     "prototype": {
       "source": "mattpocock/skills",
-      "ref": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
       "sourceType": "github",
       "skillPath": "skills/engineering/prototype/SKILL.md",
-      "computedHash": "d3fc74689bd993e39c44bfae510d014eecffbeec2922764b065377fd1327c0f6"
+      "computedHash": "d3fc74689bd993e39c44bfae510d014eecffbeec2922764b065377fd1327c0f6",
+      "installMode": "copy"
     },
     "research": {
       "source": "mattpocock/skills",
-      "ref": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
       "sourceType": "github",
       "skillPath": "skills/engineering/research/SKILL.md",
-      "computedHash": "c8c1cba327a6f824b554cd978079a3dadd7406d73174f8fb9bfef58824691970"
+      "computedHash": "5d85b64ecceed6b3f6d5996dc8af07180be8d1ff11ef3d26eda2acff078fbd39",
+      "installMode": "copy"
     },
     "setup-matt-pocock-skills": {
       "source": "mattpocock/skills",
-      "ref": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
       "sourceType": "github",
       "skillPath": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
-      "computedHash": "09f2ffc146213ba0d02f385f20e8d340ef04858ba7d90e71963fbd96fdba78d8"
+      "computedHash": "50d6c45174f56a4323b24978f36fcc9169fae0b3abb026587bf636e468c4954c",
+      "installMode": "copy"
     },
     "wayfinder": {
       "source": "mattpocock/skills",
-      "ref": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
       "sourceType": "github",
       "skillPath": "skills/engineering/wayfinder/SKILL.md",
-      "computedHash": "fa790eb4255b13d24d7e33ff4891ccd3d621558cc0ab87ae226777538ea16a8f"
+      "computedHash": "22338d9356ef84430c5ca916f2632f226583d9d7366433f62bfde5b1b6781e9e",
+      "installMode": "copy"
     }
   }
 }

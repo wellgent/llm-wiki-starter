@@ -23,4 +23,17 @@ Leave every secret out of wiki pages, commits and issues, and tell the owner whe
 
 The repo stays private, because it holds personal notes.
 Commit and push each finished piece of work.
-`scripts/check-prep` checks the tools, sign-ins, GitHub remote, issues and installed skills.
+
+## Planning workflow
+
+Big or unclear efforts are charted with wayfinder as a map on this repo's Issues and worked one ticket per fresh session with `/wayfinder <map link>`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and wayfinder maps live in this repo's GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context. See `docs/agents/domain.md`.

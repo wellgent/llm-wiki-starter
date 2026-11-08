@@ -1,147 +1,34 @@
 # LLM Wiki starter
 
-A starting point for your own LLM Wiki, set up with Claude Code and planned with wayfinder.
+The Demo repo of the wellgent.ai workshop [Coordinate agentic work with wayfinder](https://wellgent.ai/workshops/2026-11-12-coordinate-agentic-work-with-wayfinder). It is a context repo with the workshop's wayfinder Setup already applied, and the example it plans is a personal LLM Wiki.
 
-## What an LLM Wiki is
+The example itself doesn't matter. It shows the Setup working: how a map forms, how tickets wait on each other, and how one session works one ticket. Registrants find the Setup, step by step, in the wellgent.ai Classroom.
 
-An LLM Wiki is a folder of plain markdown pages that an AI agent writes and keeps current for you.
-You choose the sources, such as notes, documents, articles and project files.
-The agent reads each source and works what it learns into the wiki.
-It updates the pages that already exist, links related pages and flags where new information contradicts old.
-You read the wiki and ask it questions.
-Because the agent does the upkeep, the wiki keeps growing instead of going stale.
+## The example
 
-Andrej Karpathy describes the pattern in [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
-Read it once before you start.
+An [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), the pattern Andrej Karpathy describes, is a folder of markdown pages an agent writes and keeps current from your notes. This repo starts almost empty on purpose: the map decides its structure.
 
-## Who this is for
+## What the session shows
 
-This starter is for you if your notes and projects are spread across folders, apps and repos.
-Nothing ties them together, so every new agent session starts without knowing your context.
+1. The kickoff prompt charts the map: the map issue with its Destination, Notes and first tickets, and research starting in the background.
+2. On GitHub: the sub-issues, the "blocked by" links and the open edge of the map.
+3. A fresh session with `/wayfinder` and the map link claims the next ticket and works one grilling ticket to its decision.
+4. The decision on the ticket, the pointer on the map, and the ticket it unblocked.
 
-The repo starts almost empty on purpose.
-It does not choose a folder layout, tools or what goes in.
-You decide that with your agent, through a wayfinder map.
-Wayfinder is a planning skill by Matt Pocock.
-It turns a big, unclear goal into a list of questions on GitHub Issues and works through them one at a time.
-Your map will research how to set up an LLM Wiki, ask you what to include, and then gather and ingest your sources.
+## Follow along
 
-## What you need
-
-- A Mac or a Linux computer. On Windows, use [WSL](https://learn.microsoft.com/windows/wsl/install) and run every command in its terminal.
-- A GitHub account.
-- A paid Claude plan. Claude Code needs Pro, Max, Team or Enterprise. The free plan does not include it.
-
-## Steps
-
-### 1. Install Claude Code and the GitHub CLI, and sign in
-
-Install Claude Code:
-
-```sh
-curl -fsSL https://claude.ai/install.sh | bash
-claude auth login
-```
-
-Install the GitHub CLI from [cli.github.com](https://cli.github.com).
-On a Mac with Homebrew, that is `brew install gh`.
-Then sign in:
-
-```sh
-gh auth login
-```
-
-### 2. Make your own private copy
-
-At the top of this page, click **Use this template**, then **Create a new repository**.
-Pick your own account as the owner and give the repo a name, such as `my-wiki`.
-Set it to **Private**.
-Your notes will go into this repo, so it must stay private.
-Your copy keeps the map's issues too, so leave issues turned on.
-
-### 3. Clone your copy
-
-```sh
-gh repo clone <your-account>/my-wiki
-cd my-wiki
-```
-
-### 4. Check your setup
-
-```sh
-scripts/check-prep
-```
-
-Each line says PASS or FAIL.
-Every FAIL line comes with the command that fixes it.
-Fix them and run the script again until everything passes.
-
-### 5. Open Claude Code in the repo
-
-```sh
-claude
-```
-
-### 6. Connect the skills to GitHub Issues
-
-In Claude Code, type:
+1. Click **Use this template**, create the repo under your own account, set it to **Private**, and clone it.
+2. Ask your agent to create the five `wayfinder:` labels on your copy, as in step 4 of the Setup. A template copy has none, and wayfinder needs them.
+3. Start Claude Code or Codex in your copy, type `/wayfinder` (or `$wayfinder` in Codex) and paste the kickoff prompt:
 
 ```
-/setup-matt-pocock-skills
+The destination is the first MVP of my personal LLM Wiki, built in this repo, following Karpathy's LLM Wiki pattern: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f. My notes and projects are scattered across folders on this computer, and I will point you at them. First research how to set up an LLM Wiki: structure, workflows and tools. Then grill me on what to include. Then plan the tasks that gather and ingest my sources. This map carries execution: its tasks build the wiki in this repo, and it ends when the MVP wiki is in place.
 ```
 
-When it asks where issues live, choose GitHub.
-Accept the recommended answer for the other questions.
-It writes a few small config files, which you can commit.
-
-### 7. Start the map
-
-Type `/wayfinder`, a space, and then paste the kickoff prompt below as one message.
-
-```
-The destination is the first MVP of my personal LLM Wiki, built in this repo, following Karpathy's LLM Wiki pattern: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
-
-My notes and projects are scattered across folders on this computer, and I will point you at them.
-First research how to set up an LLM Wiki: structure, workflows and tools.
-Then grill me on what to include.
-Then plan the tasks that gather and ingest my sources.
-
-This map carries execution.
-Its tasks build the wiki in this repo, and it ends when the MVP wiki is in place.
-```
-
-Claude creates the map as a GitHub issue, with a child issue for each question it can see so far.
-It also starts research in the background.
-
-### 8. Work the map
-
-Work the map one ticket at a time.
-For each ticket, start a fresh Claude Code session in the repo and type `/wayfinder` followed by the map's issue link.
-Claude picks the next open ticket and works it with you.
-Grilling tickets need your answers.
-Research and many tasks run on their own.
-
-Keep going until the map's last ticket closes and your first wiki is in place.
-After that, keep adding sources.
+4. Work the map one ticket per fresh session with `/wayfinder` and the map's link.
 
 ## What is in this repo
 
-- `AGENTS.md` tells the agent what this repo is for and how to work in it. `CLAUDE.md` points Claude Code to it.
-- `.claude/skills/` holds Matt Pocock's skills that the steps use: wayfinder, grilling, domain-modeling, research, prototype and setup-matt-pocock-skills.
-- `skills-lock.json` records which version of [mattpocock/skills](https://github.com/mattpocock/skills) those files come from.
-- `scripts/check-prep` checks that your machine and your copy are ready.
-
-## Updating the skills later (optional)
-
-The skills work as they are, and you never have to update them.
-To move to a newer version, install [Node.js](https://nodejs.org) 22 or newer and run this in the repo, with a newer commit from [mattpocock/skills](https://github.com/mattpocock/skills/commits/main) in place of the one after `#`:
-
-```sh
-npx -y skills@1.7.2 add mattpocock/skills#24fe0ef7737efae15c87225755e9f6f5965e4888 \
-  --skill wayfinder --skill grilling --skill domain-modeling \
-  --skill research --skill prototype --skill setup-matt-pocock-skills \
-  --agent claude-code --yes
-```
-
-It rewrites the files in `.claude/skills/` and the record in `skills-lock.json`.
-Commit both.
+- `AGENTS.md` - what this repo is for and how to work in it, with the planning workflow and the agent skills sections. `CLAUDE.md` points Claude Code to it.
+- `.agents/skills/` - Matt Pocock's skills the Setup installs: wayfinder, grilling, domain-modeling, research, prototype and setup-matt-pocock-skills, pinned in `skills-lock.json`. `.claude/skills/` links to them, so Claude Code and Codex both load them.
+- `docs/agents/` - the issue tracker and domain docs `/setup-matt-pocock-skills` writes for GitHub, plus the Setup's conventions.
