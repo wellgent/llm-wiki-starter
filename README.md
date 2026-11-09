@@ -30,5 +30,5 @@ The destination is the first MVP of my personal LLM Wiki, built in this repo, fo
 ## What is in this repo
 
 - `AGENTS.md` - what this repo is for and how to work in it, with the planning workflow and the agent skills sections. `CLAUDE.md` points Claude Code to it.
-- `.agents/skills/` - Matt Pocock's skills the Setup installs: wayfinder, grilling, domain-modeling, research, prototype and setup-matt-pocock-skills, pinned in `skills-lock.json`. `.claude/skills/` links to them, so Claude Code and Codex both load them.
+- `.agents/skills/` - Matt Pocock's skills the Setup installs: wayfinder, grilling, domain-modeling, research, prototype, setup-matt-pocock-skills, wizard and writing-for-agents, pinned in `skills-lock.json`. `.claude/skills/` links to them, so Claude Code and Codex both load them.
 - `docs/agents/` - the issue tracker and domain docs `/setup-matt-pocock-skills` writes for GitHub, plus the Setup's conventions.
