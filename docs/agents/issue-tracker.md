@@ -1,6 +1,7 @@
 # Issue tracker: GitHub
 
-Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all operations.
+The wiki's wayfinder maps and their tickets live as GitHub issues on this repo. Use the `gh` CLI for all operations.
+Issues hold the planning state while a map is open, and the wiki's pages hold what outlives it.
 
 ## Conventions
 
@@ -18,18 +19,6 @@ Infer the repo from `git remote -v`; `gh` does this automatically when run insid
 
 File issues only into the user's own repo. Never file into `mattpocock/skills` (the repo these skills come from) unless the user owns it. In a fork, `gh` can default to the upstream parent, so before the first `gh issue create` of a session, check the target with `gh repo view --json nameWithOwner` and confirm it with the user if it is not their repo.
 
-## Pull requests as a triage surface
-
-**PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `/triage` reads this flag.)_
-
-When set to `yes`, PRs run through the same labels and states as issues, using the `gh pr` equivalents:
-
-- **Read a PR**: `gh pr view <number>`, then `gh pr view <number> --comments` (off a TTY, `--comments` prints only the comments, not the body), and `gh pr diff <number>` for the diff.
-- **List external PRs for triage**: `gh api --paginate 'repos/{owner}/{repo}/pulls?state=open' --jq '.[] | select(.author_association | IN("OWNER","MEMBER","COLLABORATOR") | not) | {number, title, author: .user.login, author_association, labels: [.labels[].name]}'`.
-- **Comment / label / close**: `gh pr comment`, `gh pr edit --add-label`/`--remove-label`, `gh pr close`.
-
-GitHub shares one number space across issues and PRs, so a bare `#42` may be either: resolve with `gh pr view 42` and fall back to `gh issue view 42`.
-
 ## When a skill says "publish to the issue tracker"
 
 Create a GitHub issue.
@@ -42,17 +31,17 @@ Read it as in **Read an issue** above.
 
 Used by `/wayfinder`. The **map** is a single issue with **child** issues as tickets.
 
-- **Map**: a single issue labelled `wayfinder:map`, holding the Notes / Decisions-so-far / Fog body. `gh issue create --label wayfinder:map`.
-- **Child ticket**: an issue linked to the map as a GitHub sub-issue (see **Make an issue a sub-issue of a parent**). Where sub-issues aren't enabled, add the child to a task list in the map body and put `Part of #<map>` at the top of the child body. Labels: `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`). Once claimed, the ticket is assigned to the driving dev.
+- **Map**: a single issue labelled `wayfinder:map` and titled `Map: <name>`, holding the Destination / Notes / Decisions so far / Not yet specified / Out of scope body. `gh issue create --label wayfinder:map`.
+- **Child ticket**: an issue linked to the map as a GitHub sub-issue (see **Make an issue a sub-issue of a parent**). Where sub-issues aren't enabled, add the child to a task list in the map body and put `Part of #<map>` at the top of the child body. Labels: `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`), and no other. The title starts with its type, as in the conventions below. Once claimed, the ticket is assigned to the driving dev.
 - **Blocking**: see **Blocking** under Conventions.
 - **Frontier query**: list the map's open children (`gh issue list --state open`, scoped to the map's sub-issues / task list), drop any with an open blocker (see **Count open blockers**, or an open issue in the `Blocked by` line) or an assignee; first in map order wins.
 - **Claim**: `gh issue edit <n> --add-assignee @me`, the session's first write.
-- **Resolve**: `gh issue comment <n> --body "<answer>"`, then `gh issue close <n>`, then append a context pointer (gist + link) to the map's Decisions-so-far.
+- **Resolve**: `gh issue comment <n> --body "<answer>"`, then `gh issue close <n>`, then append a context pointer (gist + link) to the map's Decisions so far.
 
 ## Conventions of this repo
 
 - **Typed titles.** A map is titled `Map: <name>`, and a ticket's title starts with its type as a word: `Research: `, `Grilling: `, `Prototype: ` or `Task: `.
-- **Research lands as a file.** Research findings land as `research/r-YYYYMMDD-<slug>.md` on `main`, linked from the ticket's resolution comment.
+- **Research lands as a file.** Research findings land as `research/r-YYYYMMDD-<slug>.md` on `main`, linked from the ticket's resolution comment, in the shape `research/README.md` gives.
 - **Drafts stay off main.** A prototype is linked from its ticket and never lands on `main`; only its decision does.
 - **No branch outlives its ticket.** Every branch other than `main` is deleted when its ticket closes.
-- **Decisions reach the repo.** A decision that outlives its map is written into this repo's pages, with a citation of the ticket.
+- **Decisions reach the wiki.** A decision that outlives its map is written onto the wiki's pages, citing the ticket. The map's Decisions so far stays an index that gists each decision and links its ticket.

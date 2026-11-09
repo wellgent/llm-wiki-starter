@@ -36,4 +36,4 @@ Issues and wayfinder maps live in this repo's GitHub Issues. See `docs/agents/is
 
 ### Domain docs
 
-Single-context. See `docs/agents/domain.md`.
+The wiki's pages are the domain model. See `docs/agents/domain.md`.
